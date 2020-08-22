@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="container">
+    <div class="mainDiv pt-5" style="height:50vh">
+        <div class="row pb-4">
+            <div class="col-sm-6 text-center text-white" style="height:50px;">
+            <button onclick="pateints()" type="submit" class="btn btn-warning w-100 text-white font-weight-bold h-100" >
+                <i class="far fa-address-card"></i> Patient
+            </button>
+            </div>
+            <div class="col-sm-6 row pr-0">
+                <div class="col-sm-6 text-center" style="height:50px;">
+                    <button class="btn btn-primary w-100 text-white font-weight-bold h-100">
+                        <i class="fas fa-briefcase-medical"></i> Disease Symptoms
+                    </button>
+                </div>
+                <div class="col-sm-6 text-center" style="height:50px;">
+                    <a asp-action="index" asp-controller="appointments" class="btn btn-primary w-100 text-white font-weight-bold h-100">
+                        <i class="far fa-calendar-check"></i> Appointments
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-center" style="height:50px;">
+                <a asp-action="Calendar" asp-controller="appointments" class="btn btn-success w-100 text-white font-weight-bold h-100">
+                    <i class="far fa-calendar-alt"></i> Calendar
+                </a>
+            </div>
+            <div class="col-sm-6 text-center" style="height:50px;">
+                <a asp-action="Report" asp-controller="Home" class="btn btn-success w-100 text-white font-weight-bold h-100">
+                    <i class="fas fa-file-invoice"></i> Reports
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script>
+    function pateints() {
+        window.location.href="/Patients/Index"
+    }
+</script>
+}

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h1>Report</h1>
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card" style="width: 15rem;">
+            <img src=~/images/report.jpg class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Patients</h5>
+                <p class="card-text">Pateints Details:Name,Age,Mobile,Gender.</p>
+                <a asp-action="Viewew" asp-controller="Home" class="btn btn-primary">Go!</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card" style="width: 15rem;">
+            <img src=~/images/report.jpg class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Diseses</h5>
+                <p class="card-text">Diseases Smptoms and References.</p>
+                <a asp-action="DiseaesReport" asp-controller="Home" class="btn btn-primary">Go!</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card" style="width: 15rem;">
+            <img src=~/images/report.jpg class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Patient Medical Records</h5>
+                <p class="card-text">Print Patient Medical Record.</p>
+                <a asp-action="MedicalReport" asp-controller="Home" class="btn btn-primary">Go!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

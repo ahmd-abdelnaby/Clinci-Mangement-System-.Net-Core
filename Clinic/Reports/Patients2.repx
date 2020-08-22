@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Patients2" PageWidth="850" PageHeight="1100" Version="20.1" DataMember="Patients" DataSource="#Ref-0">
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="topMarginBand1" />
+    <Item2 Ref="3" ControlType="DetailBand" Name="detailBand1" HeightF="132.291672">
+      <Controls>
+        <Item1 Ref="4" ControlType="XRLabel" Name="label3" Multiline="true" Text="label3" SizeF="100,23" LocationFloat="497.916656,55.2916832" Padding="2,2,0,0,96">
+          <ExpressionBindings>
+            <Item1 Ref="5" EventName="BeforePrint" PropertyName="Text" Expression="[Image]" />
+          </ExpressionBindings>
+        </Item1>
+        <Item2 Ref="6" ControlType="XRLabel" Name="label2" Multiline="true" Text="label2" SizeF="100,23" LocationFloat="497.916656,32.2916679" Padding="2,2,0,0,96">
+          <ExpressionBindings>
+            <Item1 Ref="7" EventName="BeforePrint" PropertyName="Text" Expression="[images]/[Image]" />
+          </ExpressionBindings>
+        </Item2>
+        <Item3 Ref="8" ControlType="XRPictureBox" Name="pictureBox1" SizeF="213.541656,100" LocationFloat="160.416672,32.2916679" />
+        <Item4 Ref="9" ControlType="XRLabel" Name="label1" Multiline="true" Text="label1" SizeF="100,23" LocationFloat="181.25,53.7500076" Padding="2,2,0,0,96">
+          <ExpressionBindings>
+            <Item1 Ref="10" EventName="BeforePrint" PropertyName="Text" Expression="[wwwroot]/[images]/[Image]" />
+          </ExpressionBindings>
+        </Item4>
+      </Controls>
+    </Item2>
+    <Item3 Ref="11" ControlType="BottomMarginBand" Name="bottomMarginBand1" />
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9IkRlZmF1bHRDb25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTZWxlY3RRdWVyeSIgTmFtZT0iUGF0aWVudHMiPjxUYWJsZXM+PFRhYmxlIE5hbWU9IlBhdGllbnRzIiAvPjwvVGFibGVzPjxDb2x1bW5zPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJJRCIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iTmFtZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iR2VuZGVyIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJBZ2UiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IkltYWdlIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJNb2JpbGUiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IlRvYmFjY29Vc2FnZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iQWxjaG9sIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJIaXN0b3J5IiAvPjwvQ29sdW1ucz48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlBhdGllbnRzIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJOYW1lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkdlbmRlciIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkFnZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkltYWdlIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik1vYmlsZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUb2JhY2NvVXNhZ2UiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQWxjaG9sIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ikhpc3RvcnkiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PC9EYXRhU2V0PjwvUmVzdWx0U2NoZW1hPjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

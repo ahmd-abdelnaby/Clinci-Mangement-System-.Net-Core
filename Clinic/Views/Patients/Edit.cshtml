@@ -1,0 +1,356 @@
+﻿@using Clinic.Models;
+@model Clinic.Models.ViewModels.CreatePatientViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    var photoPath = "~/images/" + (ViewBag.image ?? "noimage.png");
+    var gender = ViewBag.gender;
+    var records = ViewBag.records;
+    var appointments = ViewBag.appointments;
+    var AppID = 2;
+}
+
+<h4>Patient Details</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-8 col-sm-8">
+        <form enctype="multipart/form-data" asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Name</span>
+                </div>
+                <input type="text" class="form-control" asp-for="Name" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+                </div>
+                <select asp-for="Gender" class="custom-select" id="inputGroupSelect01">
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Age</span>
+                </div>
+                <input type="text" class="form-control" asp-for="Age" aria-describedby="basic-addon1">
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <img style="height:23px;width:auto" src="@photoPath" asp-append-version="true" />
+                    </span>
+                </div>
+                <div class="custom-file">
+                    <input asp-for="Image" class="form-control custom-file-input " />
+                    <label class="custom-file-label">Choose Image..</label>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            @*<div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Mobile</span>
+                    </div>
+                    <input asp-for="Mobile" class="form-control" />
+                    <span asp-validation-for="Mobile" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">TobaccoUsage</span>
+                    </div>
+                    <input asp-for="TobaccoUsage" class="form-control" />
+                    <span asp-validation-for="TobaccoUsage" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Alchol</span>
+                    </div>
+                    <input asp-for="Alchol" class="form-control" />
+                    <span asp-validation-for="Alchol" class="text-danger"></span>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">History</span>
+                    </div>
+                    <input asp-for="History" class="form-control" />
+                    <span asp-validation-for="History" class="text-danger"></span>
+                </div>*@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-danger"><i class="fas fa-reply"></i> Back to List</a>
+            </div>
+            <hr />
+            <div id="tab" class="btn-group" data-toggle="buttons-radio">
+                <a href="#prices2" class="btn btn-large btn-info active" data-toggle="tab"><i class="fas fa-file-invoice"></i> Medical Records</</a>
+                <a href="#features2" class="btn btn-large btn-info" data-toggle="tab"><i class="far fa-calendar-check"></i> Appointments</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="prices2">
+                    @*<br>
+                        <p class="lead">Prices content</p>
+                        <div class="row">
+                            <div class="span3">
+                                <img src="http://placehold.it/200x200">
+                            </div>
+                            <div class="span9">
+                                <p>There are now two rates of Capital Gains Tax (CGT) for individuals. A standard rate of 18% and a higher rate of 28%. The annual exempt amount is still £10,100 for ’10-’11. For more information on CGT please see the factsheet we have put together, which is available to download below.</p>
+                            </div>
+                        </div>*@
+                    <br />
+                    <a asd class="btn" id="bbtn" asp-action="Index" asp-controller="Records" asp-route-id="@Model.ID">All Records</a>
+                    @if (records.Count == 0)
+                    {
+                        <h1>No Records</h1>
+                    }
+                    else
+                    {
+                        <table class="table table-striped ">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Patient</th>
+                                    <th scope="col">Document</th>
+                                    <th scope="col">Description</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in records)
+                                {
+                                  <tr onclick="RecordDetailsPopUp()" style="cursor:grab">
+                                    <td>
+                                        <p id="PatientName">@item.Patient.Name</p>
+                                    </td>
+                                    <td>
+                                        <img id="document" style="height:50px;width:auto" src="~/images/@item.Document??'noimage.png'" asp-append-version="true" />
+                                    </td>
+                                    <td><p id="Description">@item.Description</p></td>
+                                    <td>
+                                        <a asp-action="Edit" asp-controller="Records" asp-route-id="@item.ID" class="btn btn-primary" >
+                                            Edit
+                                        </a>
+                                    </td>
+                                  </tr>
+                                }
+                                <tr>
+                                    <td colspan="3">
+                                        <a class="btn w-100" id="bbtn" asp-action="Create" asp-controller="Records" asp-route-id="@Model.ID">Add New+</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+                <div class="tab-pane" id="features2">
+                    <br />
+                    <a asd class="btn " id="bbtn" asp-action="Index" asp-controller="Appointments" asp-route-id="@Model.ID">All Appointments</a>
+                    @if (appointments.Count == 0)
+                    {
+                        <h1>No Appointments</h1>
+                    }
+                    else
+                    {
+                        <table class="table table-striped ">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Patient</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Prescription</th>
+                                    <th scope="col">Appointment Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in appointments)
+                                {
+                                    AppID = item.ID;
+                                    <tr>
+                                        <td>
+                                            <p id="PatientName">@item.Patient.Name</p>
+                                        </td>
+                                        <td>
+                                            <p id="Date">@item.Date</p>
+                                        </td>
+                                        <td>
+                                            @if (item.Status == true)
+                                            {
+                                                <p id="Status">Active </p>
+                                            }
+                                            else
+                                            {
+                                                <p id="Status">Cancelled</p>
+
+                                            }
+                                        </td>
+                                        <td>
+                                            <p id="Prescription">@item.Prescription</p>
+                                        </td>
+                                        <td>
+                                            <p id="Type">@item.Type</p>
+                                        </td>
+                                        <td>
+
+                                            <button type="button" onclick="mod()" class="btn btn-primary" id="showModel">
+                                                Details
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="6">
+                                        <a class="btn w-100" id="bbtn" asp-action="AddAppointment" asp-controller="Appointments" asp-route-id="@Model.ID">Add New+</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(fileName);
+                        });
+
+
+                    });
+                    function mod() {
+                        $('#exampleModal').modal('show');
+                        var PateintName = $("#PatientName").html();
+                        var Date = $("#Date").html();
+                        var Status = $("#Status").html();
+                        var Prescription = $("#Prescription").html();
+                        var Type = $("#Type").html();
+                        $(".modal-body #PatientName").val(PateintName);
+                        $(".modal-body #Type").val(Type);
+                        $(".modal-body #Date").val(Date);
+                        $(".modal-body #Prescription").val(Prescription);
+                    }
+                    function RecordDetailsPopUp() {
+                        $('#RecordDetailsModal').modal('show');
+                        $("#Modaldocument").attr('src', $("#document").attr('src'));
+                        var patient = $("#PatientName").html();
+                        var description = $("#Description").html()
+                        console.log(patient);
+                        console.log(description);
+                        $("#Namee").html(patient);
+                        $("#Prescriptione").html(description);
+                        $("#aspRouteID").val(1);
+                    }
+                    function DocumentClicked() {
+                        $('#RecordDetailsModal').modal('hide');
+                        $("#DocumentModal").modal('show');
+                        $(".modal-body #Modaldocument").attr('src', $("#document").attr('src'));
+                    }
+                </script>
+            }
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Appointment Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="PatientID" value="2" />
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Name</span>
+                        @*<a asp-action="DownloadDocument" asp-controller="records">download</a>*@
+                    </div>
+                    <input type="text" class="form-control" id="PatientName" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Appointment Type</span>
+                    </div>
+                    <input type="text" class="form-control" id="Type" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Date</span>
+                    </div>
+                    <input type="datetime" class="form-control" id="Date" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                    </div>
+                    <select class="custom-select" id="Status">
+                        <option value="0">Active</option>
+                        <option value="1">Cancelled</option>
+                    </select>
+                </div>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Prescription</span>
+                    </div>
+                    <input type="datetime" class="form-control" id="Prescription" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">طيب</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="RecordDetailsModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Record Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img id="Modaldocument" onclick="DocumentClicked()" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" id="Namee"></h5>
+                                <p class="card-text" id="Prescriptione"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a id="aspRouteID"  class="btn btn-primary">Understood</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="DocumentModal"  data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="Modaldocument"  class="card-img" alt="...">
+            </div>
+        </div>
+    </div>
+</div>
+

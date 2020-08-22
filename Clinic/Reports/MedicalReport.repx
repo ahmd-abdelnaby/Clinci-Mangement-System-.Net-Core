@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="MedicalReport" Margins="100, 100, 100, 113" PageWidth="850" PageHeight="1100" Version="20.1" FilterString="[PatientID] = ?Patient" DataMember="Records" DataSource="#Ref-0">
+  <Parameters>
+    <Item1 Ref="4" Description="Patient" ValueSourceSettings="#Ref-2" ValueInfo="0" Name="Patient" Type="#Ref-3" />
+  </Parameters>
+  <Bands>
+    <Item1 Ref="5" ControlType="TopMarginBand" Name="topMarginBand1" />
+    <Item2 Ref="6" ControlType="DetailBand" Name="detailBand1" HeightF="75">
+      <Controls>
+        <Item1 Ref="7" ControlType="XRTable" Name="table2" SizeF="650,25" LocationFloat="0,0" Font="Times New Roman, 9.75pt, style=Bold" Padding="2,2,0,0,96" Borders="All">
+          <Rows>
+            <Item1 Ref="8" ControlType="XRTableRow" Name="tableRow2" Weight="1">
+              <Cells>
+                <Item1 Ref="9" ControlType="XRTableCell" Name="tableCell3" Weight="1.642093977605966" Multiline="true" Text="Patient ID" Font="Times New Roman, 15.75pt, style=Bold, charSet=0">
+                  <StylePriority Ref="10" UseFont="false" />
+                </Item1>
+                <Item2 Ref="11" ControlType="XRTableCell" Name="tableCell4" Weight="5.4030447469982521" Multiline="true" Text="Report Description" Font="Times New Roman, 15.75pt, style=Bold, charSet=0" Borders="Left, Top, Bottom">
+                  <StylePriority Ref="12" UseFont="false" UseBorders="false" />
+                </Item2>
+                <Item3 Ref="13" ControlType="XRTableCell" Name="tableCell5" Weight="1.7881941763967597" TextFormatString="Record: {0}" Multiline="true" Text="tableCell5" Font="Times New Roman, 15.75pt, style=Bold, charSet=0" Borders="Top, Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="14" EventName="BeforePrint" PropertyName="Text" Expression="[DataSource.CurrentRowIndex]+1" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="15" UseFont="false" UseBorders="false" />
+                </Item3>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="16" UseFont="false" UseBorders="false" />
+        </Item1>
+        <Item2 Ref="17" ControlType="XRTable" Name="table1" SizeF="650,50" LocationFloat="0,25" Padding="2,2,0,0,96" Borders="Left, Right, Bottom">
+          <Rows>
+            <Item1 Ref="18" ControlType="XRTableRow" Name="tableRow1" Weight="1">
+              <Cells>
+                <Item1 Ref="19" ControlType="XRTableCell" Name="tableCell1" Weight="1.2083333587646483" Multiline="true" Text="tableCell1">
+                  <Controls>
+                    <Item1 Ref="20" ControlType="XRLabel" Name="label2" Multiline="true" Text="label2" TextAlignment="MiddleCenter" SizeF="120.833336,77.0833359" LocationFloat="0,0" Font="Times New Roman, 15.75pt, charSet=0" Padding="2,2,0,0,100">
+                      <ExpressionBindings>
+                        <Item1 Ref="21" EventName="BeforePrint" PropertyName="Text" Expression="[PatientID]" />
+                      </ExpressionBindings>
+                      <StylePriority Ref="22" UseFont="false" UseTextAlignment="false" />
+                    </Item1>
+                  </Controls>
+                </Item1>
+                <Item2 Ref="23" ControlType="XRTableCell" Name="tableCell2" Weight="5.2916666412353512" Multiline="true" Text="tableCell2">
+                  <Controls>
+                    <Item1 Ref="24" ControlType="XRLabel" Name="label1" Multiline="true" Text="label1" SizeF="529.1667,50" LocationFloat="0,0" Font="Times New Roman, 15.75pt, charSet=0" Padding="2,2,0,0,100">
+                      <ExpressionBindings>
+                        <Item1 Ref="25" EventName="BeforePrint" PropertyName="Text" Expression="[Description]" />
+                      </ExpressionBindings>
+                      <StylePriority Ref="26" UseFont="false" />
+                    </Item1>
+                  </Controls>
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="27" UseBorders="false" />
+        </Item2>
+      </Controls>
+    </Item2>
+    <Item3 Ref="28" ControlType="BottomMarginBand" Name="bottomMarginBand1" HeightF="113.125008">
+      <Controls>
+        <Item1 Ref="29" ControlType="XRLabel" Name="label3" TextFormatString="Records Number:{0}" Multiline="true" Text="label3" SizeF="302.083344,23" LocationFloat="0,0" Font="Times New Roman, 14.25pt, charSet=0" Padding="2,2,0,0,100">
+          <ExpressionBindings>
+            <Item1 Ref="30" EventName="BeforePrint" PropertyName="Text" Expression="[DataSource.RowCount]" />
+          </ExpressionBindings>
+          <StylePriority Ref="31" UseFont="false" />
+        </Item1>
+      </Controls>
+    </Item3>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="32" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9IkRlZmF1bHRDb25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTZWxlY3RRdWVyeSIgTmFtZT0iUmVjb3JkcyI+PFRhYmxlcz48VGFibGUgTmFtZT0iUmVjb3JkcyIgLz48L1RhYmxlcz48Q29sdW1ucz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJJRCIgLz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJEb2N1bWVudCIgLz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJQYXRpZW50SUQiIC8+PENvbHVtbiBUYWJsZT0iUmVjb3JkcyIgTmFtZT0iRGVzY3JpcHRpb24iIC8+PC9Db2x1bW5zPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlMSI+PFZpZXcgTmFtZT0iUmVjb3JkcyI+PEZpZWxkIE5hbWU9IklEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRG9jdW1lbnQiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iUGF0aWVudElEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRGVzY3JpcHRpb24iIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PC9EYXRhU2V0PjwvUmVzdWx0U2NoZW1hPjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+    <Item2 Ref="33" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource2" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTIiPjxDb25uZWN0aW9uIE5hbWU9IkRlZmF1bHRDb25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTZWxlY3RRdWVyeSIgTmFtZT0iUGF0aWVudHMiPjxUYWJsZXM+PFRhYmxlIE5hbWU9IlBhdGllbnRzIiAvPjwvVGFibGVzPjxDb2x1bW5zPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJJRCIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iTmFtZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iR2VuZGVyIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJBZ2UiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IkltYWdlIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJNb2JpbGUiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IlRvYmFjY29Vc2FnZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iQWxjaG9sIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJIaXN0b3J5IiAvPjwvQ29sdW1ucz48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTIiPjxWaWV3IE5hbWU9IlBhdGllbnRzIj48RmllbGQgTmFtZT0iSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJOYW1lIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkdlbmRlciIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkFnZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkltYWdlIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik1vYmlsZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJUb2JhY2NvVXNhZ2UiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQWxjaG9sIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ikhpc3RvcnkiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PC9EYXRhU2V0PjwvUmVzdWx0U2NoZW1hPjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+    <Item3 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource3" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTMiPjxDb25uZWN0aW9uIE5hbWU9IkRlZmF1bHRDb25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTZWxlY3RRdWVyeSIgTmFtZT0iUmVjb3JkcyI+PFRhYmxlcz48VGFibGUgTmFtZT0iUmVjb3JkcyIgLz48L1RhYmxlcz48Q29sdW1ucz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJJRCIgLz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJEb2N1bWVudCIgLz48Q29sdW1uIFRhYmxlPSJSZWNvcmRzIiBOYW1lPSJQYXRpZW50SUQiIC8+PENvbHVtbiBUYWJsZT0iUmVjb3JkcyIgTmFtZT0iRGVzY3JpcHRpb24iIC8+PC9Db2x1bW5zPjwvUXVlcnk+PFF1ZXJ5IFR5cGU9IlNlbGVjdFF1ZXJ5IiBOYW1lPSJQYXRpZW50cyI+PFRhYmxlcz48VGFibGUgTmFtZT0iUGF0aWVudHMiIC8+PC9UYWJsZXM+PENvbHVtbnM+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IklEIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJOYW1lIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJHZW5kZXIiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9IkFnZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iSW1hZ2UiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9Ik1vYmlsZSIgLz48Q29sdW1uIFRhYmxlPSJQYXRpZW50cyIgTmFtZT0iVG9iYWNjb1VzYWdlIiAvPjxDb2x1bW4gVGFibGU9IlBhdGllbnRzIiBOYW1lPSJBbGNob2wiIC8+PENvbHVtbiBUYWJsZT0iUGF0aWVudHMiIE5hbWU9Ikhpc3RvcnkiIC8+PC9Db2x1bW5zPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlMyI+PFZpZXcgTmFtZT0iUmVjb3JkcyI+PEZpZWxkIE5hbWU9IklEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRG9jdW1lbnQiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iUGF0aWVudElEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRGVzY3JpcHRpb24iIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iUGF0aWVudHMiPjxGaWVsZCBOYW1lPSJJRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9Ik5hbWUiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iR2VuZGVyIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iQWdlIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iSW1hZ2UiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTW9iaWxlIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRvYmFjY29Vc2FnZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJBbGNob2wiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iSGlzdG9yeSIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 Ref="2" ObjectType="DevExpress.XtraReports.Parameters.DynamicListLookUpSettings, DevExpress.Printing.v20.1.Core" DataSource="#Ref-33" DataMember="Patients" ValueMember="ID" DisplayMember="Name" />
+    <Item2 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v20.1" Ref="3" Content="System.Int32" Type="System.Type" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>

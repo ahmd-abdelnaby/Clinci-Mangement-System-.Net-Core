@@ -1,0 +1,527 @@
+﻿@model Clinic.Models.Appointment
+@using Clinic.Models;
+@{
+    ViewData["Title"] = "Home Page";
+    List<Patient> patients = ViewBag.Patients;
+    var Patients = new SelectList(patients, "ID", "Name");
+}
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Calendar</title>
+    <meta name="description" content="Calendar">
+    <meta name="author" content="Charles Anderson">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="content">
+        <div class="calendar-container">
+            <div class="calendar">
+                <div class="year-header">
+                    <span class="left-button" id="prev"> &lang; </span>
+                    <span class="year" id="label"></span>
+                    <span class="right-button" id="next"> &rang; </span>
+                </div>
+                <table class="months-table">
+                    <tbody>
+                        <tr class="months-row">
+                            <td class="month">Jan</td>
+                            <td class="month">Feb</td>
+                            <td class="month">Mar</td>
+                            <td class="month">Apr</td>
+                            <td class="month">May</td>
+                            <td class="month">Jun</td>
+                            <td class="month">Jul</td>
+                            <td class="month">Aug</td>
+                            <td class="month">Sep</td>
+                            <td class="month">Oct</td>
+                            <td class="month">Nov</td>
+                            <td class="month">Dec</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="days-table">
+                    <td class="day">Sun</td>
+                    <td class="day">Mon</td>
+                    <td class="day">Tue</td>
+                    <td class="day">Wed</td>
+                    <td class="day">Thu</td>
+                    <td class="day">Fri</td>
+                    <td class="day">Sat</td>
+                </table>
+                <div class="frame">
+                    <table class="dates-table">
+                        <tbody class="tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <button class="button" id="add-button">Add Appointment</button>
+            </div>
+        </div>
+        <div class="events-container">
+        </div>
+        <div class="dialog" id="dialog">
+            <h2 class="dialog-header"> Add New Appointment </h2>
+            <form  class="form" id="form">
+                <div class="form-container" align="center">
+                    <label class="form-label" id="valueFromMyButton" for="name">Patient name</label>
+                    @*<input class="input" type="text" id="name" maxlength="36">*@
+                    @Html.DropDownList("PatientID", Patients, new { @class = "form-control",@id= "PatientID" })
+                    <label class="form-label" id="valueFromMyButton" for="count">Appointment Type</label>
+                    @*<input class="input" type="number" id="count" min="0" max="1000000" maxlength="7">*@
+                    <input asp-for="Date" id="AppDate" hidden class="form-control" />
+                    <select asp-for="Type" class="form-control" id="AppType">
+                        <option class="form-control" value="0">Examination</option>
+                        <option class="form-control" value="1">consultation</option>
+                    </select>
+                    <label class="form-label">Prescription</label>
+                    <input asp-for="Prescription" class="form-control" id="AppPresc" />
+                    <br />
+                    <input type="button" value="Cancel" class="button" id="cancel-button">
+                    <input type="button" value="OK" class="button" id="ok-button">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Dialog Box-->
+    @*<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous">
+        </script>
+        <script src="app.js"></script>*@
+</body>
+</html>
+@section Scripts
+{
+    <script>
+        var dday;
+        var mmonth;
+        var yyear;
+        // Setup the calendar with the current date
+        $(document).ready(function () {
+            getAllAppointments();
+            var date = new Date();
+            var today = date.getDate();
+            // Set click handlers for DOM elements
+            $(".right-button").click({ date: date }, next_year);
+            $(".left-button").click({ date: date }, prev_year);
+            $(".month").click({ date: date }, month_click);
+            $("#add-button").click({ date: date }, new_event);
+            // Set current month as active
+            $(".months-row").children().eq(date.getMonth()).addClass("active-month");
+            init_calendar(date);
+            var events = check_events(today, date.getMonth() + 1, date.getFullYear());
+            show_events(events, months[date.getMonth()], today);
+        });
+
+        // Initialize the calendar by appending the HTML dates
+        function init_calendar(date) {
+            $(".tbody").empty();
+            $(".events-container").empty();
+            var calendar_days = $(".tbody");
+            var month = date.getMonth();
+            var year = date.getFullYear();
+            var day_count = days_in_month(month, year);
+            var row = $("<tr class='table-row'></tr>");
+            var today = date.getDate();
+            // Set date to 1 to find the first day of the month
+            date.setDate(1);
+            var first_day = date.getDay();
+            // 35+firstDay is the number of date elements to be added to the dates table
+            // 35 is from (7 days in a week) * (up to 5 rows of dates in a month)
+            for (var i = 0; i < 35 + first_day; i++) {
+                // Since some of the elements will be blank,
+                // need to calculate actual date from index
+                var day = i - first_day + 1;
+                // If it is a sunday, make a new row
+                if (i % 7 === 0) {
+                    calendar_days.append(row);
+                    row = $("<tr class='table-row'></tr>");
+                }
+                // if current index isn't a day in this month, make it blank
+                if (i < first_day || day > day_count) {
+                    var curr_date = $("<td class='table-date nil'>" + "</td>");
+                    row.append(curr_date);
+                }
+                else {
+                    var curr_date = $("<td class='table-date'>" + day + "</td>");
+                    var events = check_events(day, month + 1, year);
+                    if (today === day && $(".active-date").length === 0) {
+                        curr_date.addClass("active-date");
+                        show_events(events, months[month], day);
+                    }
+                    // If this date has any events, style it with .event-date
+                    if (events.length !== 0) {
+                        curr_date.addClass("event-date");
+                    }
+                    // Set onClick handler for clicking a date
+                    curr_date.click({ events: events, month: months[month], day: day }, date_click);
+                    row.append(curr_date);
+                }
+            }
+            // Append the last row and set the current year
+            calendar_days.append(row);
+            $(".year").text(year);
+        }
+
+        // Get the number of days in a given month/year
+        function days_in_month(month, year) {
+            var monthStart = new Date(year, month, 1);
+            var monthEnd = new Date(year, month + 1, 1);
+            return (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
+        }
+
+        // Event handler for when a date is clicked
+        function date_click(event) {
+            dday = event.data.day;
+            mmonth = event.data.month;
+            yyear = $(".year").html();
+            getAppointment(event.data.month, event.data.day);
+            $(".events-container").show(250);
+            $("#dialog").hide(250);
+            $(".active-date").removeClass("active-date");
+            $(this).addClass("active-date");
+            show_events(event.data.events, event.data.month, event.data.day);
+        };
+
+        // Event handler for when a month is clicked
+        function month_click(event) {
+            $(".events-container").show(250);
+            $("#dialog").hide(250);
+            var date = event.data.date;
+            $(".active-month").removeClass("active-month");
+            $(this).addClass("active-month");
+            var new_month = $(".month").index(this);
+            date.setMonth(new_month);
+            init_calendar(date);
+        }
+
+        // Event handler for when the year right-button is clicked
+        function next_year(event) {
+            $("#dialog").hide(250);
+            var date = event.data.date;
+            var new_year = date.getFullYear() + 1;
+            $("year").html(new_year);
+            date.setFullYear(new_year);
+            init_calendar(date);
+        }
+
+        // Event handler for when the year left-button is clicked
+        function prev_year(event) {
+            $("#dialog").hide(250);
+            var date = event.data.date;
+            var new_year = date.getFullYear() - 1;
+            $("year").html(new_year);
+            date.setFullYear(new_year);
+            init_calendar(date);
+        }
+
+        // Event handler for clicking the new event button
+        function new_event(event) {
+            // if a date isn't selected then do nothing
+            if ($(".active-date").length === 0)
+                return;
+            // remove red error input on click
+            $("input").click(function () {
+                $(this).removeClass("error-input");
+            })
+            // empty inputs and hide events
+            $("#dialog input[type=text]").val('');
+            $("#dialog input[type=number]").val('');
+            $(".events-container").hide(250);
+            $("#dialog").show(250);
+            // Event handler for cancel button
+            $("#cancel-button").click(function () {
+                $("#name").removeClass("error-input");
+                $("#count").removeClass("error-input");
+                $("#dialog").hide(250);
+                $(".events-container").show(250);
+            });
+            // Event handler for ok button
+            $("#ok-button").unbind().click({ date: event.data.date }, function () {
+                event.preventDefault();
+                var date = event.data.date;
+                //var name = $("#name").val().trim();
+                //var count = parseInt($("#count").val().trim());
+                //var day = parseInt($(".active-date").html());
+
+                var PatientID = $('#PatientID').val();
+                var type = $('#AppType').val();
+                var presc = $('#AppPresc').val();
+                console.log(date);
+                console.log(PatientID);
+                console.log(type);
+                console.log(presc);
+
+                var h = { PatientID: PatientID, Type: type, Prescription: presc, month: mmonth, day: dday, year: yyear }
+
+                $.ajax({
+                    url: "@Url.Action("CreateJson", "Appointments")",
+                    type: "POST",
+
+                dataType:"json",
+                data: h,
+                    success: function (result) { console.log(result) },
+                error: function (err) { console.log(err); $("#body").html(err.responseText) }
+
+                });
+
+                
+
+
+
+                // Basic form validation
+                //if (name.length === 0) {
+                //    $("#name").addClass("error-input");
+                //}
+                //else if (isNaN(count)) {
+                //    $("#count").addClass("error-input");
+                //}
+                //else {
+                //    $("#dialog").hide(250);
+                //    console.log("new event");
+                //    new_event_json(name, count, date, day);
+                //    date.setDate(day);
+                //    init_calendar(date);
+
+                //}
+            });
+        }
+
+        // Adds a json event to event_data
+        function new_event_json(name, count, date, day) {
+            var event = {
+                "occasion": name,
+                "invited_count": count,
+                "year": date.getFullYear(),
+                "month": date.getMonth() + 1,
+                "day": day
+            };
+            event_data["events"].push(event);
+        }
+
+        // Display all events of the selected date in card views
+        function show_events(events, month, day) {
+            // Clear the dates container
+            $(".events-container").empty();
+            $(".events-container").show(250);
+            console.log(event_data["events"]);
+            // If there are no events for this date, notify the user
+            if (events.length === 0) {
+                var event_card = $("<div class='event-card'></div>");
+                var event_name = $("<div class='event-name'>There are no events planned for " + month + " " + day + ".</div>");
+                $(event_card).css({ "border-left": "10px solid #FF1744" });
+                $(event_card).append(event_name);
+                $(".events-container").append(event_card);
+            }
+            else {
+                // Go through and add each event as a card to the events container
+                for (var i = 0; i < events.length; i++) {
+                    var iddd = events[i]["id"];
+                    var event_card = $("<div class='event-card'></div>");
+                    var event_name = $("<div id='NameDiv' style='cursor: grab' class='event-name'>Details:</div>");
+                    var event_id = $("<div id='idDiv' style='display:none' class='event-name'>"+ events[i]["id"]+"</div>");
+                    $("#NameDiv").click(function () {
+                        //console.log($('#idDiv').html());
+                        var id = $('#idDiv').html();
+                        window.location.href = "https://localhost:44352/Appointments/Details/" + id;
+                    });
+                    var event_count = $("<div class='event-count'>" + events[i]["name"] + "  Description "+events[i]["prescription"] + "</div>");
+                    if (events[i]["cancelled"] === true) {
+                        $(event_card).css({
+                            "border-left": "10px solid #FF1744"
+                        });
+                        event_count = $("<div class='event-cancelled'>Cancelled</div>");
+                    }
+                    $(event_card).append(event_name).append(event_count).append(event_id);
+                    $(".events-container").append(event_card);
+
+                }
+            }
+        }
+        function nameClick(id) {
+            alert(id);
+        }
+        // Checks if a specific date has any events
+        function check_events(day, month, year) {
+            var events = [];
+            for (var i = 0; i < event_data["events"].length; i++) {
+                var event = event_data["events"][i];
+                if (event["day"] === day &&
+                    event["month"] === month &&
+                    event["year"] === year) {
+                    events.push(event);
+                }
+            }
+            return events;
+        }
+
+        // Given data for events in JSON format
+        //var event_data = {
+        //    "events": [
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10,
+        //            "cancelled": true
+        //        },
+        //        {
+        //            "occasion": " Repeated Test Event ",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 10
+        //        },
+        //        {
+        //            "occasion": " Test Event",
+        //            "invited_count": 120,
+        //            "year": 2017,
+        //            "month": 5,
+        //            "day": 11
+        //        }
+        //    ]
+        //};
+        var event_data = {
+            "events": [
+
+            ]
+        };
+        //const months = [
+        //    "January",
+        //    "February",
+        //    "March",
+        //    "April",
+        //    "May",
+        //    "June",
+        //    "July",
+        //    "August",
+        //    "September",
+        //    "October",
+        //    "November",
+        //    "December"
+        //];
+        const months = [
+            1,
+            2,3,4,5,6,7,8,9,10,11,12
+        ];
+        var data = [];
+        function getAllAppointments()
+        {
+            jQuery.ajaxSettings.traditional = true;
+
+            $.ajax({
+                url: "@Url.Action("AllAppointments", "Appointments")",
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        var event = {
+                            "id": result[i].id,
+                            "date": result[i].date,
+                            "status": result[i].status,
+                            "prescription": result[i].prescription,
+                            "year": result[i].year,
+                            "month": result[i].month,
+                            "day": result[i].day,
+                            "name": result[i].name
+                        };
+                        event_data["events"].push(event);
+                    }
+                },
+                error: function (err) { alert(err) }
+            });
+         }
+        function getAppointment(month,day)
+        {
+            jQuery.ajaxSettings.traditional = true;
+            event.preventDefault();
+            $.ajax({
+                data: { month: month, day:day },
+                url: "@Url.Action("appointmentsByDate", "Appointments")",
+                success: function (result) {
+                    for (var i = 0; i < result.length; i++) {
+                        var event = {
+                            "id": result[i].id,
+                            "date": result[i].date,
+                            "status": result[i].status,
+                            "prescription": result[i].prescription,
+                            "year": result[i].year,
+                            "month": result[i].month,
+                            "day": result[i].day,
+                            "name": result[i].name
+                        };
+                        event_data["events"].push(event);
+
+                    }
+                },
+                error: function (err) { alert(err) }
+            });
+         }
+    </script>
+}

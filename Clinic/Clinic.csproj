@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-Clinic-B5FEBA42-86BE-4AB6-9601-9B156356B036</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Reports\Diseases.repx" />
+    <None Remove="Reports\MedicalReport.repx" />
+    <None Remove="Reports\Patients.repx" />
+    <None Remove="Reports\Patients2.repx" />
+    <None Remove="XtraReport1.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Diseases.repx" />
+    <EmbeddedResource Include="Reports\MedicalReport.repx" />
+    <EmbeddedResource Include="Reports\Patients.repx" />
+    <EmbeddedResource Include="Reports\Patients2.repx" />
+    <EmbeddedResource Include="XtraReport1.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="20.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Views\Adminstrator\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Reports\Diseases.cs">
+      <DependentUpon>Diseases.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\Diseases.Designer.cs">
+      <DependentUpon>Diseases.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\MedicalReport.cs">
+      <DependentUpon>MedicalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\MedicalReport.Designer.cs">
+      <DependentUpon>MedicalReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\Patients.cs">
+      <DependentUpon>Patients.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\Patients.Designer.cs">
+      <DependentUpon>Patients.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\Patients2.cs">
+      <DependentUpon>Patients2.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\Patients2.Designer.cs">
+      <DependentUpon>Patients2.repx</DependentUpon>
+    </Compile>
+    <Compile Update="XtraReport1.cs">
+      <DependentUpon>XtraReport1.repx</DependentUpon>
+    </Compile>
+    <Compile Update="XtraReport1.Designer.cs">
+      <DependentUpon>XtraReport1.repx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

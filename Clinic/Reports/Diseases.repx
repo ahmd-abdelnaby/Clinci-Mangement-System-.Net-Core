@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="20.1.4.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v20.1, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Diseases" PageWidth="850" PageHeight="1100" Version="20.1" DataMember="Diseases" DataSource="#Ref-0">
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="topMarginBand1">
+      <Controls>
+        <Item1 Ref="3" ControlType="XRTable" Name="table1" SizeF="650,25" LocationFloat="0,75" Font="Times New Roman, 9.75pt, style=Bold" Padding="2,2,0,0,96" Borders="All">
+          <Rows>
+            <Item1 Ref="4" ControlType="XRTableRow" Name="tableRow1" Weight="1">
+              <Cells>
+                <Item1 Ref="5" ControlType="XRTableCell" Name="tableCell1" Weight="1.2187499237060546" Multiline="true" Text="Disease" TextAlignment="MiddleCenter">
+                  <StylePriority Ref="6" UseTextAlignment="false" />
+                </Item1>
+                <Item2 Ref="7" ControlType="XRTableCell" Name="tableCell2" Weight="2.8125001373170573" Multiline="true" Text="Symptoms" TextAlignment="MiddleCenter">
+                  <StylePriority Ref="8" UseTextAlignment="false" />
+                </Item2>
+                <Item3 Ref="9" ControlType="XRTableCell" Name="tableCell3" Weight="2.4687501448880855" Multiline="true" Text="References" TextAlignment="MiddleCenter">
+                  <StylePriority Ref="10" UseTextAlignment="false" />
+                </Item3>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="11" UseFont="false" UseBorders="false" />
+        </Item1>
+        <Item2 Ref="12" ControlType="XRLabel" Name="label1" Multiline="true" Text="Diseases" SizeF="169.791672,47.9583435" LocationFloat="233.333328,10.0000067" Font="Times New Roman, 26pt, style=Bold" Padding="2,2,0,0,96">
+          <StylePriority Ref="13" UseFont="false" />
+        </Item2>
+      </Controls>
+    </Item1>
+    <Item2 Ref="14" ControlType="DetailBand" Name="detailBand1" HeightF="26.041666">
+      <Controls>
+        <Item1 Ref="15" ControlType="XRTable" Name="table2" SizeF="650,25" LocationFloat="0,1.04166663" EvenStyleName="Style1" BackColor="White" Padding="2,2,0,0,96" Borders="None">
+          <Rows>
+            <Item1 Ref="16" ControlType="XRTableRow" Name="tableRow2" Weight="1">
+              <Cells>
+                <Item1 Ref="17" ControlType="XRTableCell" Name="tableCell4" Weight="1.2187499237060546" Multiline="true" Text="tableCell1" EvenStyleName="Style1" Padding="2,0,0,0,100" Borders="Left, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="18" EventName="BeforePrint" PropertyName="Text" Expression="[diseaseName]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="19" UsePadding="false" UseBorders="false" />
+                </Item1>
+                <Item2 Ref="20" ControlType="XRTableCell" Name="tableCell5" Weight="2.8125001373170573" Multiline="true" Text="tableCell2" EvenStyleName="Style1" Padding="2,0,0,0,100" Borders="Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="21" EventName="BeforePrint" PropertyName="Text" Expression="[Symptoms]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="22" UsePadding="false" UseBorders="false" />
+                </Item2>
+                <Item3 Ref="23" ControlType="XRTableCell" Name="tableCell6" Weight="2.4687501448880851" Multiline="true" Text="tableCell3" EvenStyleName="Style1" Padding="2,0,0,0,100" Borders="Right, Bottom">
+                  <ExpressionBindings>
+                    <Item1 Ref="24" EventName="BeforePrint" PropertyName="Text" Expression="[Reference]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="25" UsePadding="false" UseBorders="false" />
+                </Item3>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="26" UseBackColor="false" UseBorders="false" />
+        </Item1>
+      </Controls>
+    </Item2>
+    <Item3 Ref="27" ControlType="BottomMarginBand" Name="bottomMarginBand1" />
+  </Bands>
+  <StyleSheet>
+    <Item1 Ref="28" Name="Style1" BorderStyle="Inset" Padding="0,0,0,0,100" ForeColor="Black" BackColor="Silver" StringFormat="Near;Near;0;None;Character;Default" />
+  </StyleSheet>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v20.1" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9IkRlZmF1bHRDb25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTZWxlY3RRdWVyeSIgTmFtZT0iRGlzZWFzZXMiPjxUYWJsZXM+PFRhYmxlIE5hbWU9IkRpc2Vhc2VzIiAvPjwvVGFibGVzPjxDb2x1bW5zPjxDb2x1bW4gVGFibGU9IkRpc2Vhc2VzIiBOYW1lPSJJRCIgLz48Q29sdW1uIFRhYmxlPSJEaXNlYXNlcyIgTmFtZT0iU3ltcHRvbXMiIC8+PENvbHVtbiBUYWJsZT0iRGlzZWFzZXMiIE5hbWU9IlJlZmVyZW5jZSIgLz48Q29sdW1uIFRhYmxlPSJEaXNlYXNlcyIgTmFtZT0iZGlzZWFzZU5hbWUiIC8+PC9Db2x1bW5zPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlMSI+PFZpZXcgTmFtZT0iRGlzZWFzZXMiPjxGaWVsZCBOYW1lPSJJRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlN5bXB0b21zIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlJlZmVyZW5jZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJkaXNlYXNlTmFtZSIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48L0RhdGFTZXQ+PC9SZXN1bHRTY2hlbWE+PENvbm5lY3Rpb25PcHRpb25zIENsb3NlQ29ubmVjdGlvbj0idHJ1ZSIgLz48L1NxbERhdGFTb3VyY2U+" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>
